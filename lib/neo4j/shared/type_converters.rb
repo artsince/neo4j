@@ -135,7 +135,8 @@ module Neo4j::Shared
 
     # Returns true if the property isn't defined in the model or it's both nil and unchanged.
     def skip_conversion?(obj, attr, value)
-      !obj.class.attributes[attr] || (value.nil? && !obj.changed_attributes[attr])
+      # !obj.class.attributes[attr] || (value.nil? && !obj.changed_attributes[attr])
+      !obj.class.attributes[attr] || value.nil?
     end
 
     class << self
