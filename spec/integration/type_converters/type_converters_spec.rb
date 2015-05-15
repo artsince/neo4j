@@ -108,7 +108,7 @@ describe Neo4j::Shared::TypeConverters do
   end
 
   describe Neo4j::Shared::TypeConverters::DateTimeConverter do
-    subject { Neo4j::Shared::TypeConverters::TimeConverter }
+    subject { Neo4j::Shared::TypeConverters::DateTimeConverter }
 
     before(:each) do
       @dt = 1_352_538_487
@@ -122,6 +122,7 @@ describe Neo4j::Shared::TypeConverters do
     its(:to_db, DateTime.parse('2012-11-10T09:08:07+02:00')) { should eq(@dt - 2 * @hr) }
     its(:to_db, DateTime.parse('2012-11-10T09:08:07+04:00')) { should eq(@dt - 4 * @hr) }
     its(:to_db, DateTime.parse('2012-11-10T09:08:07+06:00')) { should eq(@dt - 6 * @hr) }
+    its(:to_db, nil) { should be 0 }
 
     describe 'to_ruby' do
       it 'translate a Integer back to DateTime' do

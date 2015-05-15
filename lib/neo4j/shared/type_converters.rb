@@ -27,12 +27,16 @@ module Neo4j::Shared
         # Converts the given DateTime (UTC) value to an Integer.
         # DateTime values are automatically converted to UTC.
         def to_db(value)
-          value = value.new_offset(0) if value.respond_to?(:new_offset)
+          if !value.nil?
+            value = value.new_offset(0) if value.respond_to?(:new_offset)
 
-          args = [value.year, value.month, value.day]
-          args += (value.class == Date ? [0, 0, 0] : [value.hour, value.min, value.sec])
+            args = [value.year, value.month, value.day]
+            args += (value.class == Date ? [0, 0, 0] : [value.hour, value.min, value.sec])
 
-          Time.utc(*args).to_i
+            Time.utc(*args).to_i
+          else
+            value.to_i
+          end
         end
 
         DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S %z'
